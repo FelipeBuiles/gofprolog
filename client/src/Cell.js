@@ -1,17 +1,23 @@
 import React, { Component } from 'react'
 
 class Cell extends Component {
+  constructor(props) {
+    super(props)
+    this.handleCellClicked = this.handleCellClicked.bind(this)
+  } 
+
   handleCellClicked = () => {
-    this.props.handleCellClicked(this.props.row, this.props.col)
+    this.props.toggleCell(this.props.row, this.props.col)
   }
 
   render() {
     let dim = this.props.dim
-    // stroke='#ccc' strokeWidth='1'
     return (
       <rect
-        width={dim+1} height={dim+1} fill={this.props.fill}
+        stroke='#000' strokeWidth='1' 
+        width={dim} height={dim} fill={this.props.fill}
         x={dim*this.props.col} y={dim*this.props.row}
+        onClick={this.handleCellClicked}
         >
       </rect>
     )

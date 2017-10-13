@@ -1,12 +1,18 @@
 .game-container {
-    display: flex;
-    background-color: #2d2d2d;
-}
+  display: flex;
+  background-color: #2d2d2d;
+  width: 133vh; }
 
 .game-board {
-
-}
+  background: "#FAFAFA";
+  margin: "0 auto";
+  box-shadow: "0 0 5px rgba(0, 0, 0)";
+  border: 1px solid #000; }
 
 .side-bar {
-
-}
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  color: #fff;
+  padding: 10px; }

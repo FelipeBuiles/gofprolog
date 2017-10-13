@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import Foundation from 'react-foundation'
 import Board from './Board'
-
+import './App.css'
 class App extends Component {
   constructor(props) {
     super(props)
@@ -17,16 +16,26 @@ class App extends Component {
       rows,
       cols
     }
+
+    this.clearBoard = this.clearBoard.bind(this)
+    this.setNewBoard = this.setNewBoard.bind(this)
   }
 
   componentWillMount() {
-    // fetch('http://localhost:8000/printgrid')
-    // .then(res => {
-    //   return res.json()
-    // })
-    // .then(({grid}) => {
-    //   this.setState({grid})
-    // })
+    this.setNewBoard()
+  }
+
+  clearBoard() {
+    let grid = []
+    for (let i = 0; i<this.state.rows; i++) {
+      grid.push(new Array(this.state.rows).fill(0))
+    }
+    this.setState({
+      grid
+    })
+  }
+
+  setNewBoard() {
     let grid = []
     for (let i = 0; i<this.state.rows; i++) {
       let row = []
@@ -44,6 +53,8 @@ class App extends Component {
     return (
       <Board grid={this.state.grid}
             height={this.state.height}
+            reset={this.setNewBoard}
+            clear={this.clearBoard}
             cellLength={this.state.cellLength}></Board>
     )
   }

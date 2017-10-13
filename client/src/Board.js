@@ -15,6 +15,14 @@ class Board extends Component {
     this.nextGen = this.nextGen.bind(this)
     this.toggleCell = this.toggleCell.bind(this)
     this.playPause = this.playPause.bind(this)
+    this.reset = this.reset.bind(this)
+    this.clear = this.clear.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.grid !== this.state.grid) {
+      this.setState({grid: nextProps.grid})
+    }
   }
 
   nextGen() {
@@ -35,10 +43,25 @@ class Board extends Component {
     this.setState({
       running: !this.state.running
     })
-  } 
+  }
 
-  toggleCell(cell) {
-    console.log(cell)
+  reset() {
+    this.props.reset()
+  }
+
+  clear() {
+    this.props.clear()
+  }
+
+  toggleCell(col, row) {
+    let len = this.state.grid.length, copy = new Array(len);
+    for (let i=0; i<len; ++i) {
+      copy[i] = this.state.grid[i].slice(0);
+    }
+    copy[col][row] = !!copy[col][row] ? 0 : 1;
+    this.setState({
+      grid: copy
+    })
   }
 
   render() {
@@ -51,7 +74,7 @@ class Board extends Component {
               dim={this.props.cellLength} col={col} row={row}
               key={row + ',' + col}
               fill={this.state.grid[row][col] ? 'white': '#2d2d2d'}
-              onClick={() => this.toggleCell(this)}
+              toggleCell={this.toggleCell}
               />
           a.push(cell);
         }
@@ -64,8 +87,14 @@ class Board extends Component {
           {a}
         </svg>
         <div className="side-bar" style={{width: this.props.height/3}}>
-          Generation: {this.state.generation}
-          <Button onClick={this.playPause} color={Colors.PRIMARY}>
+          <p>Generation: {this.state.generation}</p>
+          <Button onClick={this.clear} isExpanded color={Colors.PRIMARY}>
+            Clear
+          </Button>
+          <Button onClick={this.reset} isExpanded color={Colors.PRIMARY}>
+            Reset
+          </Button>
+          <Button onClick={this.playPause} isExpanded color={Colors.PRIMARY}>
             {this.state.running ? 'Pause' : 'Play'}
           </Button>
         </div>

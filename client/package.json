@@ -8,7 +8,7 @@
     "axios": "^0.16.2",
     "electron": "^1.7.9",
     "foreman": "^2.0.0",
-    "foundation": "^4.2.1-1",
+    "foundation-sites": "^6.4.4-rc1",
     "node-sass-chokidar": "^0.0.3",
     "npm-run-all": "^4.1.1",
     "react": "^16.0.0",
